@@ -1,15 +1,14 @@
 <template lang="pug">
   #app
     img(src="./assets/logo.png")
-    h1 {{ msg }}
-    p(v-show="showValue") {{ value }}
-    p(v-if="showValue") {{ value }}
-    p(v-else-if="false") {{ 'algo más' }}
-    p(v-else) {{ 'Ya estuvo' }}
+    p
+      input(v-model="name")
+    p {{ name }}
 
-    ul
-      li(v-for="i in items") {{ i }}
-
+    p
+      a(v-bind:href="url" target="_blank") link
+      br
+      a(:href="url" target="_blank") usando un shortHand
 </template>
 
 <script>
@@ -17,11 +16,8 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Hola Mundo Vue.js App',
-
-      showValue: false,
-      value: 'Algo',
-      items: [ 1, 2, 3, 4, 5, 6, 7 ]
+      name: '',
+      url: 'https://www.google.com.mx'
     }
   }
 }
