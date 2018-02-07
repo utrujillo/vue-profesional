@@ -2,11 +2,13 @@
   #app
     img(src="./assets/logo.png")
     h1 {{ msg }}
-    p {{ 1 + 1 }}
-    p {{ 'hola' + ' mundo' }}
-    p {{ person.name.toUpperCase() +' '+ person.lastName }}
-    p {{ JSON.stringify( person ) }}
-    p {{ true ? 'true' : 'false' }}
+    p(v-show="showValue") {{ value }}
+    p(v-if="showValue") {{ value }}
+    p(v-else-if="false") {{ 'algo más' }}
+    p(v-else) {{ 'Ya estuvo' }}
+
+    ul
+      li(v-for="i in items") {{ i }}
 
 </template>
 
@@ -17,10 +19,9 @@ export default {
     return {
       msg: 'Hola Mundo Vue.js App',
 
-      person: {
-        name: 'Uziel',
-        lastName: 'Trujillo'
-      }
+      showValue: false,
+      value: 'Algo',
+      items: [ 1, 2, 3, 4, 5, 6, 7 ]
     }
   }
 }
