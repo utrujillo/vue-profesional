@@ -3,12 +3,8 @@
     img(src="./assets/logo.png")
     p
       input(v-model="name")
-    p {{ name }}
-
-    p
-      a(v-bind:href="url" target="_blank") link
-      br
-      a(:href="url" target="_blank") usando un shortHand
+      input(v-model="lastName")
+    p {{ fullName }}
 </template>
 
 <script>
@@ -17,7 +13,14 @@ export default {
   data () {
     return {
       name: '',
+      lastName: '',
       url: 'https://www.google.com.mx'
+    }
+  },
+
+  computed: {
+    fullName () {
+      return `${this.name} ${this.lastName}`
     }
   }
 }
