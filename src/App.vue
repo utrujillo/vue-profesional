@@ -3,8 +3,8 @@
     img(src="./assets/logo.png")
     p
       input(v-model="name")
-      input(v-model="lastName")
-    p {{ fullName }}
+      button(v-on:click="format") Format
+    p {{ formattedName }}
 </template>
 
 <script>
@@ -13,19 +13,13 @@ export default {
   data () {
     return {
       name: '',
-      lastName: '',
-      url: 'https://www.google.com.mx'
+      formattedName: ''
     }
   },
 
-  computed: {
-    fullName () {
-      return `${this.name} ${this.lastName}`
-    }
-  },
-  watch: {
-    name (newValue, oldValue) {
-      console.log(newValue, oldValue)
+  methods: {
+    format () {
+      this.formattedName = this.name.split(' ').join('-').toUpperCase()
     }
   }
 }
