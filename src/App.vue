@@ -22,6 +22,11 @@ export default {
     fullName () {
       return `${this.name} ${this.lastName}`
     }
+  },
+  watch: {
+    name (newValue, oldValue) {
+      console.log(newValue, oldValue)
+    }
   }
 }
 </script>
