@@ -1,5 +1,7 @@
 <template lang="pug">
   #app
+    pm-header
+
     section.section
       nav.nav.has-shadow
         .container
@@ -10,23 +12,23 @@
           )
           a.button.is-info.is-large(v-on:click="search") Buscar
           a.button.is-danger.is-large &times;
-          p
-            small {{ searchMessage }}
+
+      .container
+        p
+          small {{ searchMessage }}
 
       .container.results
         .columns
-          .column(v-for="track in tracks") {{track.name}} {{track.artist}}
+          .column(v-for="track in tracks")
+            | {{track.name}} {{track.artists[0].name}}
 
+    pm-footer
 </template>
 
 <script>
-const TRACKS = [
-  {name: 'I don\'t want a miss a thing', artist: 'Aerosmith'},
-  {name: 'Tomorrow', artist: 'Cranberrires'},
-  {name: 'Chispa adecuada', artist: 'Heroes del silencio'},
-  {name: 'Luz de día', artist: 'Enanitos verdes'},
-  {name: 'Scar Tissue', artist: 'Red hot chilli pepers'}
-]
+import tarckService from './services/track.js'
+import PmFooter from './components/layout/Footer.vue'
+import PmHeader from './components/layout/Header.vue'
 
 export default {
   name: 'app',
@@ -37,6 +39,8 @@ export default {
     }
   },
 
+  components: { PmFooter, PmHeader },
+
   computed: {
     searchMessage () {
       return `Canciones encontradas: ${this.tracks.length}`
@@ -45,7 +49,11 @@ export default {
 
   methods: {
     search () {
-      this.tracks = TRACKS
+      if (!this.searchQuery) { return }
+      tarckService.search(this.searchQuery)
+        .then(res => {
+          this.tracks = res.tracks.items
+        })
     }
   }
 }
