@@ -18,13 +18,19 @@
           nav.level
             .level-left
               a.level-item.has-text-centered
-                span.icon.is-small ♫
+                span.icon.is-small(v-on:click="selectTrack") &#9658;
 </template>
 
 <script>
   export default {
     props: {
       track: { type: Object, required: true }
+    },
+
+    methods: {
+      selectTrack () {
+        this.$emit('select', this.track.id)
+      }
     }
   }
 </script>
