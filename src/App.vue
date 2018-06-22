@@ -1,8 +1,8 @@
 <template lang="pug">
   #app
     pm-header
-    pm-notification(v-show="showNotification")
-      p(slot="body") No se encontraron resultados
+    pm-notification(v-show="objNotification.class",v-bind:objNotification="objNotification")
+      p(slot="body") {{ searchMessage }}
 
     pm-loader(v-show="isLoading")
 
@@ -51,7 +51,10 @@ export default {
       searchQuery: '',
       tracks: [],
       isLoading: false,
-      showNotification: false,
+      objNotification: {
+        show: false,
+        class: ''
+      },
       selectedTrack: ''
     }
   },
@@ -60,17 +63,18 @@ export default {
 
   computed: {
     searchMessage () {
-      return `Canciones encontradas: ${this.tracks.length}`
+      return (this.tracks.total === 0) ? ('No se encontraron resultados...') : (`Canciones encontradas: ${this.tracks.length}`)
     }
   },
 
   watch: {
-    showNotification () {
-      if (this.showNotification) {
+    objNotification: {
+      handler () {
         setTimeout(() => {
-          this.showNotification = false
+          this.resetObjNotification()
         }, 3000)
-      }
+      },
+      deep: true
     }
   },
 
@@ -78,16 +82,26 @@ export default {
     search () {
       if (!this.searchQuery) { return }
       this.isLoading = true
-      this.showNotification = false
+      this.resetObjNotification()
       tarckService.search(this.searchQuery)
         .then(res => {
-          this.showNotification = res.tracks.total === 0
           this.tracks = res.tracks.items
           this.isLoading = false
+          if (res.tracks.total === 0) {
+            this.objNotification.show = false
+            this.objNotification.class = 'is-danger'
+          } else {
+            this.objNotification.show = true
+            this.objNotification.class = 'is-success'
+          }
         })
     },
     setSelectedTrack (trackID) {
       this.selectedTrack = trackID
+    },
+    resetObjNotification () {
+      this.objNotification.show = false
+      this.objNotification.class = ''
     }
   }
 }

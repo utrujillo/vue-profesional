@@ -2,8 +2,8 @@
   .container
     .columns
       .column.is-5.is-offset-4
-        .notification.is-danger
-          slot(name="body") Algo anduvo mal
+        .notification(v-bind:class="objNotification.class")
+          slot(name="body") No hay resultados
 </template>
 
 <style lang="scss" scoped>
@@ -11,3 +11,11 @@
     margin: 10px;
   }
 </style>
+
+<script>
+  export default {
+    props: {
+      objNotification: { type: Object, required: true }
+    }
+  }
+</script>
