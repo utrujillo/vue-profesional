@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import tarckService from '@/services/track.js'
+import trackService from '@/services/track.js'
 import PmTrack from '@/components/Track.vue'
 import PmLoader from '@/components/shared/Loader.vue'
 import PmNotification from '@/components/shared/Notification.vue'
@@ -78,7 +78,7 @@ export default {
       if (!this.searchQuery) { return }
       this.isLoading = true
       this.resetObjNotification()
-      tarckService.search(this.searchQuery)
+      trackService.search(this.searchQuery)
         .then(res => {
           this.tracks = res.tracks.items
           this.isLoading = false
