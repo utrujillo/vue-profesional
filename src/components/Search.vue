@@ -28,6 +28,7 @@
         .columns.is-multiline
           .column.is-one-quarter(v-for="track in tracks")
             pm-track(
+              v-blur="track.preview_url",
               v-bind:class="{ 'is-active': track.id === selectedTrack }",
               v-bind:track="track", 
               v-on:select="setSelectedTrack"

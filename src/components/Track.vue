@@ -17,9 +17,9 @@
         small {{ track.duration_ms | ms-to-mm }}
           nav.level
             .level-left
-              a.level-item.has-text-centered
+              button.level-item.button.is-primary
                 span.icon.is-small(v-on:click="selectTrack") &#9658;
-              a.level-item.has-text-centered
+              button.level-item.button.is-warning
                 span.icon.is-small(v-on:click="goToTrack(track.id)") Ir
 </template>
 
@@ -31,10 +31,12 @@
 
     methods: {
       selectTrack () {
+        if (!this.track.preview_url) { return }
         this.$emit('select', this.track.id)
         this.$bus.$emit('set-track', this.track)
       },
       goToTrack (id) {
+        if (!this.track.preview_url) { return }
         this.$router.push({ name: 'track', params: {id: id} })
       }
     }
