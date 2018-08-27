@@ -1,9 +1,11 @@
 <template lang="pug">
   main
-    pm-notification(v-show="objNotification.class",v-bind:objNotification="objNotification")
-      p(slot="body") {{ searchMessage }}
-
-    pm-loader(v-show="isLoading")
+    transition(name="move")
+      pm-notification(v-show="objNotification.class",v-bind:objNotification="objNotification")
+        p(slot="body") {{ searchMessage }}
+    
+    transition(name="move")
+      pm-loader(v-show="isLoading")
 
     section.section(v-show="!isLoading")
       nav.nav.has-shadow
