@@ -6,6 +6,7 @@ import msToMm from '@/filters/ms-to-mm.js'
 import blur from '@/directives/blur.js'
 
 import routes from '@/routes.js'
+import store from '@/store.js'
 
 import EventBus from '@/plugins/event-bus.js'
 
@@ -19,5 +20,6 @@ const router = new VueRouter({ routes: routes, mode: 'history' })
 new Vue({
   el: '#app',
   render: h => h(App),
-  router: router
+  router: router,
+  store: store
 })
